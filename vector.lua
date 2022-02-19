@@ -66,7 +66,7 @@ end
 
 function vector:map(f)  
 	local mapvector = vector:new({})
-	for _, v in pairs(self.elements) do
+	for i, v in ipairs(self.elements) do
 		mapvector:push_back(f(v))
 	end
 	return mapvector
@@ -79,7 +79,7 @@ function vector:fold(f)
 	end
 	local selfvec = self.elements
 	table.remove(selfvec, 1)
-	for _, v in pairs(selfvec) do
+	for _, v in ipairs(selfvec) do
 		result = f(result, v)
 	end
 	return result
@@ -88,7 +88,7 @@ end
 
 function vector:filter(predicate)
 	local reV = vector:new({})
-	for _, v in pairs(self.elements) do
+	for _, v in ipairs(self.elements) do
 		if predicate(v) then
 			reV:push_back(v)
 		end
@@ -163,6 +163,7 @@ function vector:zipn(f)
 	end
 	return retuples
 end
+
 
 
 -- ONLY FOR VECTORS OF ELEMENTS THAT ARE OF SIMPLE TYPES
