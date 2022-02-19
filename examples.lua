@@ -144,7 +144,7 @@ local function print_plane(table)
     local mx = #table.elements // math.sqrt(#table.elements)
     print("\x1b[0;0H") -- puts the cursor to the column 0, row 0 of the terminal
     for e = 1, #table.elements, 1 do
-        if (e == mx) then
+        if (e % mx) == 0 then
             io.write("\n")
         end
         if table.elements[e].old_state == false then
