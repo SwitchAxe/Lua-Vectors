@@ -99,55 +99,55 @@ local plane = vector:new({
         return struct:new({["old_state"] = false, ["new_state"] = false})
     end
     return struct:new({["old_state"] = true, ["new_state"] = false})
-end) -- now we got a table of structs
+end) -- now we got a vector of structs
 
 -- first, some helper functions:
-local function grid_ref(table, i)
-    if (i > #table.elements) or (i < 1) then
+local function grid_ref(vector, i)
+    if (i > #vector.elements) or (i < 1) then
         return 0
     end
-    return table.elements[i].old_state
+    return vector.elements[i].old_state
 end
 
 
-local function cntNeighborhood(table, index)
-    local mx = #table.elements // math.sqrt(#table.elements)
+local function cntNeighborhood(vector, index)
+    local mx = #vector.elements // math.sqrt(#vector.elements)
     local cnt = 0
-    if grid_ref(table, index+1) == true then
+    if grid_ref(vector, index+1) == true then
         cnt = cnt + 1
     end
-    if grid_ref(table, index-1) == true then
+    if grid_ref(vector, index-1) == true then
         cnt = cnt + 1
     end
-    if grid_ref(table, index - mx) == true then
+    if grid_ref(vector, index - mx) == true then
         cnt = cnt + 1
     end
-    if grid_ref(table, index + mx) == true then
+    if grid_ref(vector, index + mx) == true then
         cnt = cnt + 1
     end
-    if grid_ref(table, index+mx - 1) == true then
+    if grid_ref(vector, index+mx - 1) == true then
         cnt = cnt + 1
     end
-    if grid_ref(table, index+mx + 1) == true then
+    if grid_ref(vector, index+mx + 1) == true then
         cnt = cnt + 1
     end
-    if grid_ref(table, index-mx - 1) == true then
+    if grid_ref(vector, index-mx - 1) == true then
         cnt = cnt + 1
     end
-    if grid_ref(table, index-mx + 1) == true then
+    if grid_ref(vector, index-mx + 1) == true then
         cnt = cnt + 1
     end
     return cnt
 end
 
-local function print_plane(table)
-    local mx = #table.elements // math.sqrt(#table.elements)
+local function print_plane(plane)
+    local mx = #plane.elements // math.sqrt(#plane.elements)
     print("\x1b[0;0H") -- puts the cursor to the column 0, row 0 of the terminal
-    for e = 1, #table.elements, 1 do
+    for e = 1, #plane.elements, 1 do
         if (e % mx) == 0 then
             io.write("\n")
         end
-        if table.elements[e].old_state == false then
+        if plane.elements[e].old_state == false then
             io.write(" ")
         else
             io.write("o")
